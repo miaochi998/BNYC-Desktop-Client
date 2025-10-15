@@ -31,23 +31,8 @@
     "resources": [],
     "externalBin": [],
     "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": "",
       "webviewInstallMode": {
         "type": "downloadBootstrapper"
-      },
-      "allowDowngrades": false,
-      "wix": {
-        "language": ["zh-CN", "en-US"],
-        "dialogImagePath": "",
-        "bannerPath": ""
-      },
-      "nsis": {
-        "displayLanguageSelector": true,
-        "languages": ["SimpChinese", "English"],
-        "compression": "lzma",
-        "installMode": "perMachine"
       }
     },
     "macOS": {
