@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNYC定制系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        
+        .container {
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .logo {
+            font-size: 72px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .title {
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            animation: spin 1s linear infinite;
+        }
+        
+        .status {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .error-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .error-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1 class="title">BNYC定制系统</h1>
+        <p class="subtitle">RustDesk客户端定制SaaS平台</p>
+        <div class="loader"></div>
+        <p class="status" id="status">正在连接服务器...</p>
+        <div class="error" id="error" style="display: none;">
+            <div class="error-title">无法连接到服务器</div>
+            <div class="error-message">
+                请检查网络连接，或联系技术支持。<br>
+                服务器地址: <span id="server-url"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 开发环境和生产环境的URL配置
+        const isDev = window.location.protocol === 'file:' || window.location.hostname === 'localhost';
+        const APP_URL = isDev ? 'http://localhost:6201' : 'https://app.bnyc.com';
+        
+        // 显示当前尝试连接的URL
+        document.getElementById('server-url').textContent = APP_URL;
+        
+        // 尝试重定向到Web应用
+        function redirect() {
+            document.getElementById('status').textContent = '正在加载应用...';
+            window.location.href = APP_URL;
+        }
+        
+        // 检查服务器是否可访问
+        async function checkServer() {
+            try {
+                const response = await fetch(APP_URL, { 
+                    method: 'HEAD',
+                    mode: 'no-cors',
+                    cache: 'no-cache'
+                });
+                // 直接跳转
+                redirect();
+            } catch (error) {
+                // 即使fetch失败，也尝试跳转（可能是CORS限制）
+                // 等待1秒后跳转
+                setTimeout(() => {
+                    redirect();
+                }, 1000);
+            }
+        }
+        
+        // 页面加载时检查服务器
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkServer, 500);
+        });
+        
+        // 如果5秒后还没跳转，显示错误信息
+        setTimeout(() => {
+            if (window.location.protocol === 'file:' || window.location.hostname === 'localhost') {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('status').style.display = 'none';
+                document.querySelector('.loader').style.display = 'none';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+{
+  "name": "bnyc-desktop-client",
+  "version": "1.0.0",
+  "description": "BNYC RustDesk定制系统 - 桌面客户端",
+  "private": true,
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "build:windows": "tauri build --target x86_64-pc-windows-msvc",
+    "build:macos-intel": "tauri build --target x86_64-apple-darwin",
+    "build:macos-silicon": "tauri build --target aarch64-apple-darwin",
+    "build:macos-universal": "tauri build --target universal-apple-darwin"
+  },
+  "keywords": ["desktop", "tauri", "rustdesk", "bnyc"],
+  "author": "BNYC Team",
+  "license": "MIT"
+}
+

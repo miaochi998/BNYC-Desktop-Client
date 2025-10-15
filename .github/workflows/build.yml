@@ -1,0 +1,104 @@
+name: 编译桌面客户端
+
+on:
+  push:
+    tags:
+      - 'v*' # 当推送v开头的tag时触发，如 v1.0.0
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows x64
+            os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact-name: windows-x64
+            artifact-pattern: 'src-tauri/target/x86_64-pc-windows-msvc/release/bundle/msi/*.msi'
+
+          - name: macOS Intel
+            os: macos-latest
+            target: x86_64-apple-darwin
+            artifact-name: macos-intel
+            artifact-pattern: 'src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg'
+
+          - name: macOS Apple Silicon
+            os: macos-latest
+            target: aarch64-apple-darwin
+            artifact-name: macos-silicon
+            artifact-pattern: 'src-tauri/target/aarch64-apple-darwin/release/bundle/dmg/*.dmg'
+
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 安装 Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: 安装依赖 (Ubuntu)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.0-dev \
+            build-essential \
+            curl \
+            wget \
+            file \
+            libssl-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
+
+      - name: Rust缓存
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: 编译应用
+        run: |
+          cargo tauri build --target ${{ matrix.target }}
+
+      - name: 上传编译产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: ${{ matrix.artifact-pattern }}
+          if-no-files-found: error
+
+  # 可选：自动创建GitHub Release并上传安装包
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 下载所有编译产物
+        uses: actions/download-artifact@v4
+
+      - name: 创建Release并上传
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            windows-x64/*.msi
+            macos-intel/*.dmg
+            macos-silicon/*.dmg
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
