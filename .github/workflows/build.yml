@@ -66,19 +66,6 @@ jobs:
         with:
           workspaces: src-tauri
 
-      - name: 生成Windows图标
-        if: matrix.os == 'windows-latest'
-        shell: pwsh
-        run: |
-          # 使用PowerShell将PNG转换为ICO
-          Add-Type -AssemblyName System.Drawing
-          $png = [System.Drawing.Image]::FromFile("$PWD/src-tauri/icons/icon.png")
-          $ico = [System.Drawing.Icon]::FromHandle($png.GetHicon())
-          $file = [System.IO.File]::Create("$PWD/src-tauri/icons/icon.ico")
-          $ico.Save($file)
-          $file.Close()
-          $png.Dispose()
-
       - name: 安装 Tauri CLI
         run: cargo install tauri-cli --version "^2.0.0"
 
