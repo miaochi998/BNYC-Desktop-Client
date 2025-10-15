@@ -66,6 +66,9 @@ jobs:
         with:
           workspaces: src-tauri
 
+      - name: 安装 Tauri CLI
+        run: cargo install tauri-cli --version "^2.0.0"
+
       - name: 编译应用
         run: |
           cargo tauri build --target ${{ matrix.target }}
