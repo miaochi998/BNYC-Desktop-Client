@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2.0.0",
-  "productName": "BNYC定制系统",
+  "productName": "BNYC Desktop Client",
   "version": "1.0.0",
   "identifier": "com.bnyc.client",
   "build": {
@@ -15,8 +15,8 @@
     "createUpdaterArtifacts": false,
     "publisher": "BNYC Team",
     "homepage": "https://bnyc.com",
-    "shortDescription": "RustDesk客户端定制SaaS系统",
-    "longDescription": "BNYC是一个专业的RustDesk客户端定制SaaS平台，提供一键式服务器部署和客户端定制功能。",
+    "shortDescription": "RustDesk Client Customization SaaS System",
+    "longDescription": "BNYC is a professional RustDesk client customization SaaS platform that provides one-click server deployment and client customization features.",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -56,7 +56,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "BNYC定制系统",
+        "title": "BNYC Desktop Client",
         "width": 1280,
         "height": 800,
         "minWidth": 1024,
