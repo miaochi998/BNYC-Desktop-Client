@@ -120,7 +120,7 @@
     <script>
         // 开发环境和生产环境的URL配置
         const isDev = window.location.protocol === 'file:' || window.location.hostname === 'localhost';
-        const APP_URL = isDev ? 'http://localhost:6201' : 'https://app.bnyc.com';
+        const APP_URL = 'http://192.168.2.9:6201'; // 使用局域网IP便于跨设备测试
         
         // 显示当前尝试连接的URL
         document.getElementById('server-url').textContent = APP_URL;

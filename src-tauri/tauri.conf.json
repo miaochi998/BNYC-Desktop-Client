@@ -6,7 +6,7 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devUrl": "http://localhost:6201",
+    "devUrl": "http://192.168.2.9:6201",
     "frontendDist": "../public"
   },
   "bundle": {
@@ -14,7 +14,7 @@
     "targets": ["msi", "dmg", "deb", "appimage"],
     "createUpdaterArtifacts": false,
     "publisher": "BNYC Team",
-    "homepage": "https://bnyc.com",
+    "homepage": "http://192.168.2.9:6201",
     "shortDescription": "RustDesk Client Customization SaaS System",
     "longDescription": "BNYC is a professional RustDesk client customization SaaS platform that provides one-click server deployment and client customization features.",
     "icon": [
@@ -56,7 +56,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "BNYC Desktop Client",
+        "title": "BNYC定制系统",
         "width": 1280,
         "height": 800,
         "minWidth": 1024,
@@ -69,7 +69,7 @@
         "skipTaskbar": false,
         "visible": true,
         "transparent": false,
-        "url": "http://localhost:6201"
+        "url": "http://192.168.2.9:6201"
       }
     ],
     "security": {

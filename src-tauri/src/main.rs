@@ -6,11 +6,11 @@ use tauri::Manager;
 // 环境配置
 // 开发环境加载本地Web端
 #[cfg(debug_assertions)]
-const APP_URL: &str = "http://localhost:6201";
+const APP_URL: &str = "http://192.168.2.9:6201";
 
-// 生产环境加载远程Web服务器
+// 生产环境加载局域网Web服务器（当前仅测试阶段，使用局域网IP便于跨设备测试）
 #[cfg(not(debug_assertions))]
-const APP_URL: &str = "https://app.bnyc.com"; // TODO: 替换为实际的生产域名
+const APP_URL: &str = "http://192.168.2.9:6201";
 
 fn main() {
     tauri::Builder::default()
