@@ -69,7 +69,10 @@
         "skipTaskbar": false,
         "visible": true,
         "transparent": false,
-        "url": "http://192.168.2.9:6201"
+        "url": "http://192.168.2.9:6201",
+        "userAgent": null,
+        "acceptFirstMouse": true,
+        "tabbingIdentifier": null
       }
     ],
     "security": {
