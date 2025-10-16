@@ -24,9 +24,10 @@ fn main() {
             // 加载远程URL
             let _ = window.navigate(url::Url::parse(APP_URL).unwrap());
             
-            // 监听页面加载完成事件，注入滚动修复脚本
+            // 延迟2秒后注入滚动修复脚本（等待页面加载）
             let window_clone = window.clone();
-            window.on_page_load(move |_event| {
+            std::thread::spawn(move || {
+                std::thread::sleep(std::time::Duration::from_secs(2));
                 let _ = window_clone.eval(
                     r#"
                     // 确保鼠标滚轮事件正确传递到滚动容器
