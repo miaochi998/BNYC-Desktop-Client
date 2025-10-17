@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2.0.0",
   "productName": "BNYC Desktop Client",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "identifier": "com.bnyc.client",
   "build": {
     "beforeDevCommand": "",
@@ -68,11 +68,8 @@
         "alwaysOnTop": false,
         "skipTaskbar": false,
         "visible": true,
-        "transparent": false,
         "url": "http://192.168.2.9:6201",
-        "userAgent": null,
-        "acceptFirstMouse": true,
-        "tabbingIdentifier": null
+        "dragDropEnabled": false
       }
     ],
     "security": {

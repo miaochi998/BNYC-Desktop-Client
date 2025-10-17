@@ -1,6 +1,6 @@
 {
   "name": "bnyc-desktop-client",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "BNYC RustDesk定制系统 - 桌面客户端",
   "private": true,
   "scripts": {
@@ -16,4 +16,5 @@
   "author": "BNYC Team",
   "license": "MIT"
 }
+
 
